@@ -2,6 +2,8 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -13,5 +15,7 @@ public:
 	vector<vector<double>> ro;
 	vector<double> t;
 	vector<double> e_dot;
+	bool save;
 	static DataStorage getInstance();
+	static DataStorage* getInstance2();
 };

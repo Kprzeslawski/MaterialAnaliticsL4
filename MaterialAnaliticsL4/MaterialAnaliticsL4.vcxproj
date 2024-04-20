@@ -137,6 +137,8 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="data.txt" />
+    <Text Include="data2.txt" />
+    <Text Include="data_counted.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_storage.h" />
@@ -145,6 +147,9 @@
     <ClInclude Include="opt_alg.h" />
     <ClInclude Include="solution.h" />
     <ClInclude Include="user_funs.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data_out.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

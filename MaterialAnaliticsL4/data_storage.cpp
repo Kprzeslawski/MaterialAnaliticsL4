@@ -4,22 +4,36 @@ DataStorage* DataStorage::instance = nullptr;
 
 DataStorage::DataStorage(){
 
-	ifstream file("data.txt");
+	ifstream file("data_out.csv");
 	double f;
+	save = false;
+
+	ro = vector<vector<double>>(9,vector<double>(1001));
+	string row, word;
+	std::getline(file, row);
+	std::stringstream lineStream(row);
+
+	while (std::getline(lineStream, word, ';'))
+		t.push_back(std::stod(word));
+
+	std::getline(file, row);
+	std::stringstream lineStream2(row);
+
+	while (std::getline(lineStream2, word, ';'))
+		e_dot.push_back(std::stod(word));
 
 
-	ro = vector<vector<double>>(2,vector<double>(100001));
-	for (int i = 0; i < 2; i++) {
-		file >> f;
-		t.push_back(f);
-		file >> f;
-		e_dot.push_back(f);
-
-		for(int i2 = 0; i2 < 100001; i2++){
-			file >> f;
-			ro[i][i2] = f;
+	for(int i2 = 0; i2 < 1001; i2++){
+		std::getline(file, row);
+		std::stringstream lineStream3(row);
+		int i = 0;
+		while (std::getline(lineStream3, word, ';')) {
+			ro[i][i2] = std::stod(word);
+			i++;
 		}
 	}
+
+	return;
 }
 
 DataStorage DataStorage::getInstance()
@@ -27,4 +41,11 @@ DataStorage DataStorage::getInstance()
 	if (DataStorage::instance == nullptr)
 		DataStorage::instance = new DataStorage();
 	return *DataStorage::instance;
+}
+
+DataStorage* DataStorage::getInstance2()
+{
+	if (DataStorage::instance == nullptr)
+		DataStorage::instance = new DataStorage();
+	return DataStorage::instance;
 }

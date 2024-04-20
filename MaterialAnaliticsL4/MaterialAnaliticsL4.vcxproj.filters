@@ -41,6 +41,12 @@
     <Text Include="data.txt">
       <Filter>Pliki źródłowe</Filter>
     </Text>
+    <Text Include="data2.txt">
+      <Filter>Pliki źródłowe</Filter>
+    </Text>
+    <Text Include="data_counted.txt">
+      <Filter>Pliki źródłowe</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="data_storage.h">
@@ -61,5 +67,10 @@
     <ClInclude Include="user_funs.h">
       <Filter>Pliki źródłowe</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="data_out.csv">
+      <Filter>Pliki źródłowe</Filter>
+    </None>
   </ItemGroup>
 </Project>
