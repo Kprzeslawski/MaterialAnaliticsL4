@@ -14,7 +14,7 @@ DataStorage::DataStorage(){
 	std::stringstream lineStream(row);
 
 	while (std::getline(lineStream, word, ';'))
-		t.push_back(std::stod(word));
+		t.push_back(std::stod(word) + 273.);
 
 	std::getline(file, row);
 	std::stringstream lineStream2(row);
