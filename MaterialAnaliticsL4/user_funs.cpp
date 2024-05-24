@@ -25,61 +25,70 @@ matrix ff_solve(matrix x, matrix ud1, matrix ud2) {
 			
 		for (int i2 = 0; i2 < 1001; i2++) {
 			y() = y() + pow(1. - res[i2] / ds.ro[i][i2], 2.) / 9000.;
+			//std::cout << pow(1. - res[i2] / ds.ro[i][i2], 2.) / 9000. << std::endl;
+			if (i2 < 1000) {
+				DATA grad_res = (res[i2] - res[i2 + 1]);
+				DATA grad_y = (ds.ro[i][i2] - ds.ro[i][i2 + 1]);
+				y() = y() + pow(grad_res - grad_y, 2.) * 1e-28 ;
+				//std::cout << pow(grad_res - grad_y, 2.) * 1e-28 << std::endl;
+			}
+
 			//std::cout << ds.ro[i][i2] << " " << res[i2] << " " << y << std::endl;
 		}
-		if (ds.save && i == 7) {
-			std::cout << "SAVING... ";
+		if (ds.save && i == 8) {
+			std::cout << "SAVING... \n";
 			std::ofstream plik("data_counted.txt");
 			for (int i2 = 0; i2 < 1001; i2++) plik << res[i2] << std::endl;
 			plik.close();
+			std::cout << "OK\n";
 		}
 	}
 	res.clear();
 	double c = 1e10;
 	if (xt(0) < 0.)
-		y() = y() + c * (pow(xt(0), 2));
-	if (xt(0) > 1e-2)
-		y() = y() + c * (pow(xt(0) - 1e-2, 2));
-	if (xt(1) < 10.)
-		y() = y() + c * (pow(10. - xt(1), 2));
-	if (xt(1) > 25000.)
-		y() = y() + c * (pow(xt(1) - 25000., 2));
-	if (xt(2) < 1e3)
-		y() = y() + c * (pow(1e3 - xt(2), 2));
-	if (xt(2) > 1e5)
-		y() = y() + c * (pow(xt(2) - 1e5, 2));
-	if (xt(3) < 0.)
-		y() = y() + c * (pow(1. - xt(3), 2));
-	if (xt(3) > 3e9)
-		y() = y() + c * (pow(xt(3) - 3e9, 2));
-	if (xt(4) < 1e4)
-		y() = y() + c * (pow(1e4 - xt(4), 2));
-	if (xt(4) > 5e5)
-		y() = y() + c * (pow(xt(4) - 5e5, 2));
-	if (xt(5) < 0.)
-		y() = y() + c * (pow(0. - xt(5), 2));
-	if (xt(5) > 10.)
-		y() = y() + c * (pow(xt(5) - 10., 2));
-	if (xt(6) < 0.)
-		y() = y() + c * (pow(0. - xt(6), 2));
-	if (xt(6) > .5)
-		y() = y() + c * (pow(xt(6) - .5, 2));
-	if (xt(7) < 0.)
-		y() = y() + c * (pow(0. - xt(7), 2));
-	if (xt(7) > 1.)
-		y() = y() + c * (pow(xt(7) - 1., 2));
+		y() = y() + c * (pow(1e3*0.05 - xt(0), 2));
+	if (xt(0) > 1e-3 * 0.15)
+		y() = y() + c * (pow(xt(0) - 1e-3 * 0.15, 2));
+	if (xt(1) < 15000.)
+		y() = y() + c * (pow(15000. - xt(1), 2));
+	if (xt(1) > 22000.)
+		y() = y() + c * (pow(xt(1) - 22000., 2));
+	if (xt(2) < 1e3 * 50)
+		y() = y() + c * (pow(1e3*50 - xt(2), 2));
+	if (xt(2) > 1e3 * 100)
+		y() = y() + c * (pow(xt(2) - 1e3 * 100, 2));
+	if (xt(3) < 3e9 * 0.1)
+		y() = y() + c * (pow(3e9*0.1 - xt(3), 2));
+	if (xt(3) > 3e9 * 0.8)
+		y() = y() + c * (pow(xt(3) - 3e9*0.8, 2));
+	if (xt(4) < 1e3 * 50)
+		y() = y() + c * (pow(1e3*50 - xt(4), 2));
+	if (xt(4) > 1e3 * 150)
+		y() = y() + c * (pow(xt(4) - 1e3*150, 2));
+	if (xt(5) < 0.2)
+		y() = y() + c * (pow(0.2 - xt(5), 2));
+	if (xt(5) > 0.8)
+		y() = y() + c * (pow(xt(5) - 0.8, 2));
+	if (xt(6) < 0.05)
+		y() = y() + c * (pow(0.05 - xt(6), 2));
+	if (xt(6) > 0.25)
+		y() = y() + c * (pow(xt(6) - 0.25, 2));
+	if (xt(7) < 0.1)
+		y() = y() + c * (pow(0.1 - xt(7), 2));
+	if (xt(7) > 0.8)
+		y() = y() + c * (pow(xt(7) - 0.8, 2));
 	if (xt(8) < 0.)
-		y() = y() + c * (pow(0. - xt(8), 2));
-	if (xt(8) > 1e13)
-		y() = y() + c * (pow(xt(8) - 1e13, 2));
-	if (xt(9) < 0.)
-		y() = y() + c * (pow(0. - xt(9), 2));
-	if (xt(9) > 1e12)
-		y() = y() + c * (pow(xt(9) - 1e12, 2));
-	if (xt(10) < 0.)
-		y() = y() + c * (pow(0. - xt(10), 2));
-	if (xt(10) > 1.)
-		y() = y() + c * (pow(xt(10) - 1., 2));
+		y() = y() + c * (pow(xt(8), 2));
+	if (xt(8) > 0)
+		y() = y() + c * (pow(xt(8), 2));
+	if (xt(9) < 1e13 * 0.00001)
+		y() = y() + c * (pow(1e13 * 0.00001 - xt(9), 2));
+	if (xt(9) > 1e13 * 0.00009)
+		y() = y() + c * (pow(xt(9) - 1e13*0.00009, 2));
+	if (xt(10) < 0.01)
+		y() = y() + c * (pow(0.01 - xt(10), 2));
+	if (xt(10) > 0.08)
+		y() = y() + c * (pow(xt(10) - 0.08, 2));
 	if (isnan(y()))y() = 1.e100;
 	//std::cout << y << endl;
 	return y;

@@ -21,37 +21,40 @@ int main() {
 	int Nmax = 10000;
 	matrix x_opt(11, 1);
 	          
-	x_opt(0) = 0.000170931;
-	x_opt(1) = 21943.9;
-	x_opt(2) = 98540.9;
-	x_opt(3) = 1.54731e+09;//4.44e6;
-	x_opt(4) = 97352.7;//151e3;
-	x_opt(5) = 10;//
-	x_opt(6) = 0.223572;// *rand_mat()();
-	x_opt(7) = 0.999523;
-	x_opt(8) = 3.72748e+12;
-	x_opt(9) = 1.50984e+11;
-	x_opt(10) = 0.117822;
+	x_opt(0) = 5.97786e-05;
+	x_opt(1) = 21986.2;
+	x_opt(2) = 96006.7;
+	x_opt(3) = 1.57093e+09;
+	x_opt(4) = 142517;
+	x_opt(5) = 0.799957;
+	x_opt(6) = 0.249891;
+	x_opt(7) = 0.799908;
+	x_opt(8) = 0;
+	x_opt(9) = 2.2154e+08;
+	x_opt(10) = 0.08;
+	DataStorage::getInstance2()->save = true;
 	matrix y_opt = ff_solve(x_opt);
+	DataStorage::getInstance2()->save = false;
 
 
-	matrix y_tr = 10.;
+	matrix y_tr = 1e5;
 	matrix x0(11, 1);
 	matrix y(1, 1);
 	DT res;
 	while (true) {
 		while (true) {
-			x0(0) = 1e-2 * rand_mat()();
-			x0(1) = 24990. * rand_mat()() + 10.;
-			x0(2) = 1e+3 * (99 * rand_mat()() + 1);
-			x0(3) = 3e+9 * rand_mat()();//4.44e6;
-			x0(4) = 1e+3 * (490 * rand_mat()() + 10);//151e3;
-			x0(5) = 10. * rand_mat()();//
-			x0(6) = rand_mat()();//0.178546;// *rand_mat()();
-			x0(7) = rand_mat()();
-			x0(8) = 1.e+13 * rand_mat()();
-			x0(9) = 1.e+12 * rand_mat()();
-			x0(10) = rand_mat()();
+			x0(0) = 1e-3 * ( 0.05 + rand_mat()() * 0.10);
+			x0(1) = 7000 * rand_mat()() + 15000.;
+			x0(2) = 1e+3 * (50 * rand_mat()() + 50);
+			x0(3) = 3e+9 * (0.1 + rand_mat()() * 0.8);//4.44e6;
+			x0(4) = 1e+3 * (50 * rand_mat()() + 100);//151e3;
+			x0(5) = 0.2 + 0.6 * rand_mat()();//
+			x0(6) = 0.05 + 0.2 * rand_mat()();//0.178546;// *rand_mat()();
+			x0(7) = 0.1 + 0.8 * rand_mat()();
+			x0(8) = 0. * rand_mat()();
+
+			x0(9) = 1.e+13 * (0.00001 + 0.00008 * rand_mat()());
+			x0(10) = 0.01 + 0.08 * rand_mat()();
 			y = ff_solve(x0);
 			//cout << y() << "\n";
 			if (y < y_tr) {
